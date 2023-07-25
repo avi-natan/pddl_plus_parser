@@ -205,7 +205,7 @@ class ProblemParser:
         if problem_expression[0] != "define":
             raise SyntaxError("Encountered a PDDL that does not start with 'define' statement!")
 
-        for macro_expression in problem_expression:
+        for macro_expression in problem_expression[1:]:
             if macro_expression[0] == "problem":
                 self.problem.name = macro_expression[1]
                 continue
