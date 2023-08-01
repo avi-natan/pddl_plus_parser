@@ -31,7 +31,7 @@ def do_moving_test():
                                                 plan_file_path=plan_folder_path / "warehouse-problem2-plan.txt",
                                                 agent_names=agent_names,
                                                 should_validate_concurrency_constraint=False)
-    combined_plan_path = plan_folder_path / f"warehouse-combined-plan2.solution"
+    combined_plan_path = plan_folder_path / f"warehouse-problem2-combined_plan.solution"
     plan_converter.export_plan(plan_file_path=combined_plan_path, plan_actions=plan_sequence)
     trajectory_exporter = MultiAgentTrajectoryExporter(combined_domain)
     triplets = trajectory_exporter.parse_plan(problem=combined_problem, plan_path=plan_folder_path / "warehouse-problem2-plan.txt")
