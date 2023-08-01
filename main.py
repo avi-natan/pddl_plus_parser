@@ -28,14 +28,14 @@ def do_moving_test():
     plan_converter = PlanConverter(ma_domain=combined_domain)
     plan_folder_path = Path("benchmarks_mal/logistics_combined_benchmarks")
     plan_sequence = plan_converter.convert_plan(problem=combined_problem,
-                                                plan_file_path=plan_folder_path / "warehouse-Plan2.txt",
+                                                plan_file_path=plan_folder_path / "warehouse-problem2-plan.txt",
                                                 agent_names=agent_names,
                                                 should_validate_concurrency_constraint=False)
     combined_plan_path = plan_folder_path / f"warehouse-combined-plan2.solution"
     plan_converter.export_plan(plan_file_path=combined_plan_path, plan_actions=plan_sequence)
     trajectory_exporter = MultiAgentTrajectoryExporter(combined_domain)
-    triplets = trajectory_exporter.parse_plan(problem=combined_problem, plan_path=plan_folder_path / "warehouse-Plan2.txt")
-    trajectory_exporter.export_to_file(triplets, plan_folder_path / "warehouse-combined-trajectory2.trajectory")
+    triplets = trajectory_exporter.parse_plan(problem=combined_problem, plan_path=plan_folder_path / "warehouse-problem2-plan.txt")
+    trajectory_exporter.export_to_file(triplets, plan_folder_path / "warehouse-problem2-combined_trajectory.trajectory")
 
 if __name__ == '__main__':
     print(f'Hi MGSD malogistics pipeline!')
