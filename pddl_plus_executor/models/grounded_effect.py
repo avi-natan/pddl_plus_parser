@@ -98,12 +98,17 @@ class GroundedEffect:
         new_grounded_function = evaluate_expression(numeric_expression.root)
         values_to_update[new_grounded_function.untyped_representation] = new_grounded_function
 
-    def apply(self, state: State) -> None:
+    def apply(self, state: State, e_agent: str = None, faulty_actions: str = None, model: str = None, prob: float = 0.0) -> None:
         """Applies the effect to the given state.
 
         :param state: the state in which the effect is applied.
+        :param e_agent: the agent executing the operator.
+        :param faulty_actions: what types of actions can become faulty
+        :param model: what should happen when an action fails
+        :param prob: the probability for an action to fail
         """
         self.logger.debug("The antecedents for the effect hold so applying the effect.")
+        # todo: here, according to the fault model and probability of the agent, go to self.grounded_discrete_effects and stard deleting effects
         self._apply_discrete_effects(next_state_predicates=state.state_predicates)
         for grounded_expression in self.grounded_numeric_effects:
             self._update_single_numeric_expression(grounded_expression, values_to_update=state.state_fluents)
