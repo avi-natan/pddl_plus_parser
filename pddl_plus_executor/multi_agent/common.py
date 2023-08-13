@@ -16,7 +16,7 @@ def create_initial_state(problem: Problem) -> State:
     return State(predicates=initial_state_predicates, fluents=initial_state_numeric_fluents, is_init=True)
 
 
-def apply_actions(domain: Domain, current_state: State, joint_action: List[ActionCall], f_agents: Dict[str, List] = None,
+def apply_actions(domain: Domain, current_state: State, joint_action: List[ActionCall], f_agents: Dict[str, Dict] = None,
                   allow_inapplicable_actions: bool = False) -> State:
     """
 

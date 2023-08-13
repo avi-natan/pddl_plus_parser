@@ -124,7 +124,7 @@ class Operator:
 
         return self.grounded_preconditions.is_applicable(state, self.problem_objects)
 
-    def apply(self, previous_state: State, f_agents: Dict[str, List] = None, allow_inapplicable_actions: bool = False) -> State:
+    def apply(self, previous_state: State, f_agents: Dict[str, Dict] = None, allow_inapplicable_actions: bool = False) -> State:
         """Applies an action on a state and changes the state according to the action's effects.
 
         :param previous_state: the state in which the operator is being applied on.
@@ -152,7 +152,7 @@ class Operator:
                 self.logger.debug("The antecedents for the effect do not hold so skipping the effect.")
                 continue
 
-            effect.apply(new_state, executing_agent, f_agents[executing_agent][0], f_agents[executing_agent][1], f_agents[executing_agent][2])
+            effect.apply(new_state, executing_agent, f_agents[executing_agent])
 
         self._apply_universal_effects(previous_state, new_state)
         return new_state
@@ -169,7 +169,7 @@ class Operator:
         self.grounded_effects = self._ground_conditional_effects(parameters_map)
         self.grounded = True
 
-    def get_executing_agent(self, f_agents: Dict[str, List] = None) -> Optional[str]:
+    def get_executing_agent(self, f_agents: Dict[str, Dict] = None) -> Optional[str]:
         """ Get the agent that executes the action. if f_agents is none, do not return anything"""
         if f_agents is None:
             return None

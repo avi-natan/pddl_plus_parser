@@ -69,7 +69,7 @@ class MultiAgentTrajectoryExporter:
 
     def create_multi_agent_triplet(self, previous_state: State, action_call: str,
                                    problem_objects: Dict[str, PDDLObject],
-                                   f_agents: Dict[str, List] = None,
+                                   f_agents: Dict[str, Dict] = None,
                                    allow_inapplicable_actions: bool = False) -> MultiAgentTrajectoryTriplet:
         """Create a single trajectory triplet by applying the joint action on the input state and combining the effects.
 
@@ -96,7 +96,7 @@ class MultiAgentTrajectoryExporter:
                                    allow_inapplicable_actions=allow_inapplicable_actions)
         return MultiAgentTrajectoryTriplet(previous_state=previous_state, ops=operators, next_state=next_state)
 
-    def parse_plan(self, problem: Problem, f_agents: Dict[str, List] = None, plan_path: Optional[Path] = None,
+    def parse_plan(self, problem: Problem, f_agents: Dict[str, Dict] = None, plan_path: Optional[Path] = None,
                    action_sequence: Optional[List[str]] = None,
                    allow_inapplicable_actions: bool = False) -> List[MultiAgentTrajectoryTriplet]:
         """Parse the input plan file to create the trajectory.

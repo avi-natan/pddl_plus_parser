@@ -34,20 +34,37 @@ if __name__ == '__main__':
 
     agent_names = ["tru1", "tru2", "tru3"]
 
-    # this is a dictionary of {'agent': ['faulty_actions', 'model', 'prob']} where 'faulty_actions' can be one of:
-    # 1. all - all actions can be faulty
-    # 2. [actions] - actions in list can be faulty
-    # and where 'model' can be one of:
-    # 1. all - all effects are deleted
-    # 2. [effects] - effects in list can be deleted
-    # 3. postpone - the action is postponed and the preconditions are not consumed
-    # and where 'prob' is the probability of action to be faulty
-    #
-    # we start with simplest fault model of: {'agent': ['all', 'all', 0.3]
+    # this is a dictionary of {'agent': {'action': ['prob', 'model']}} where:
+    # 'agent': str - the agent name
+    # 'action': str - the action name
+    # 'prob': float - the probability of this action to fail
+    # 'model': str - the fault model for a failed action. can be one of:
+    #                ['delete_all']: delete all effects
+    #                ['delete_some', 'e1', 'e2', ..., 'en']: delete following effects
+    #                ['postpone']: postpone the action
+    # we start with simplest fault model of: {'a1': {'act1': [0.3, ['delete_all]]}
     faulty_agents = {
-        "tru1": ['all', 'all', 0.0],
-        "tru2": ['all', 'all', 0.0],
-        "tru3": ['all', 'all', 0.0]
+        'tru1': {
+            'move-forward': [0.0, ['delete_all']],
+            'rotate-right': [0.0, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
+            'lift-box': [0.0, ['delete_all']],
+            'drop-box': [0.0, ['delete_all']]
+        },
+        'tru2': {
+            'move-forward': [0.0, ['delete_all']],
+            'rotate-right': [0.0, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
+            'lift-box': [0.0, ['delete_all']],
+            'drop-box': [0.0, ['delete_all']]
+        },
+        'tru3': {
+            'move-forward': [0.0, ['delete_all']],
+            'rotate-right': [0.0, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
+            'lift-box': [0.0, ['delete_all']],
+            'drop-box': [0.0, ['delete_all']]
+        }
     }
     domain_file_path = benchmarks_path / f"{domain_name}" / f"{domain_name}-domain.pddl"
     problem_file_path = benchmarks_path / f"{domain_name}" / f"{problem_name}" / f"{domain_name}-{problem_name}.pddl"
