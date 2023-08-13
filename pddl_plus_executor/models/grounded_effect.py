@@ -1,4 +1,6 @@
 """Module that encapsulates the functionality of grounded effects."""
+import random
+import copy
 import logging
 from typing import Set, Dict, Optional
 
@@ -63,12 +65,39 @@ class GroundedEffect:
 
         return self.grounded_antecedents.is_applicable(state)
 
-    def _apply_discrete_effects(self, next_state_predicates: Dict[str, Set[GroundedPredicate]]) -> None:
+    def _apply_discrete_effects(self, next_state_predicates: Dict[str, Set[GroundedPredicate]], e_agent: str = None, e_actions: Dict = None) -> None:
         """Applies the discrete effects to the given state.
 
         :param next_state_predicates: the next state predicates to update with the effect's data.
+        :param e_agent: the agent executing the operator.
+        :param e_actions: actions of the executing agent and their fault models.
         """
-        for predicate in self.grounded_discrete_effects:
+        # todo: here, according to the fault model and probability of the agent, decide which effect to apply
+        action_name = self.action.name
+        prob = e_actions[action_name][0]
+        rnd = random.uniform(0, 1)
+        model = e_actions[action_name][1][0]
+
+        if rnd > prob:
+            grounded_discrete_effects_to_apply = copy.deepcopy(self.grounded_discrete_effects)
+        else:
+            if model == 'delete_all':
+                self.logger.warning(f"The action '{action_name}' failed! 'delete_all' model deletes all of the effects...")
+                grounded_discrete_effects_to_apply = set()
+            # elif model == 'delete_some':
+            else:
+                grounded_discrete_effects_to_apply = set()
+                for p in self.grounded_discrete_effects:
+                    if p.name not in e_actions[action_name][1][1:]:
+                        grounded_discrete_effects_to_apply.add(p)
+            # elif model == 'postpone':
+            #     # todo: to implement at some point
+            #     pass
+            # else:
+            #     print(f'not a fault model. not doing anything')
+            #     pass
+
+        for predicate in grounded_discrete_effects_to_apply:
             lifted_predicate_str = predicate.lifted_untyped_representation
             if not predicate.is_positive:
                 positive_predicate = predicate.copy()
@@ -106,8 +135,6 @@ class GroundedEffect:
         :param e_actions: actions of the executing agent and their fault models.
         """
         self.logger.debug("The antecedents for the effect hold so applying the effect.")
-        # todo: here, according to the fault model and probability of the agent, go to self.grounded_discrete_effects and start deleting effects
-
-        self._apply_discrete_effects(next_state_predicates=state.state_predicates)
+        self._apply_discrete_effects(next_state_predicates=state.state_predicates, e_agent=e_agent, e_actions=e_actions)
         for grounded_expression in self.grounded_numeric_effects:
             self._update_single_numeric_expression(grounded_expression, values_to_update=state.state_fluents)

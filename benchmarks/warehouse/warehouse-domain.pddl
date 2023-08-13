@@ -16,7 +16,7 @@
     (:action move-forward
         :parameters     (?t - truck ?lf - location ?dir - direction ?lt - location)
         :precondition   (and (at ?t ?lf) (facedir ?t ?dir) (dirof ?lt ?dir ?lf) (empty ?lt))
-        :effect         (and (not (at ?t ?lf)) (empty ?lf) (facedir ?t ?dir) (not (empty ?lt)) (at ?t ?lt))
+        :effect         (and (not (at ?t ?lf)) (empty ?lf) (not (empty ?lt)) (at ?t ?lt))
     )
     (:action rotate-right
         :parameters     (?t - truck ?df - direction ?dt - direction)

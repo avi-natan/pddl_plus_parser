@@ -35,7 +35,7 @@ class State:
         predicates_str = ""
         for grounded_predicates in self.state_predicates.values():
             predicates_str += " "
-            predicates_str += " ".join(predicate.untyped_representation for predicate in grounded_predicates)
+            predicates_str += "\n".join(predicate.untyped_representation for predicate in grounded_predicates)
 
         return predicates_str
 

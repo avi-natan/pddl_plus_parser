@@ -30,8 +30,9 @@ def apply_actions(domain: Domain, current_state: State, joint_action: List[Actio
     if len(joint_action) == 1:
         action_call = joint_action[0]
         action = domain.actions[action_call.name]
-        return Operator(action=action, domain=domain, grounded_action_call=action_call.parameters).apply(
-            previous_state=current_state, f_agents=f_agents, allow_inapplicable_actions=allow_inapplicable_actions)
+        oper = Operator(action=action, domain=domain, grounded_action_call=action_call.parameters)
+        st = oper.apply(previous_state=current_state, f_agents=f_agents, allow_inapplicable_actions=allow_inapplicable_actions)
+        return st
 
     accumulative_changed_state = current_state.copy()
     for action_call in joint_action:
@@ -41,7 +42,7 @@ def apply_actions(domain: Domain, current_state: State, joint_action: List[Actio
         action = domain.actions[action_call.name]
         operator = Operator(action=action, domain=domain, grounded_action_call=action_call.parameters)
         if operator.is_applicable(current_state) or allow_inapplicable_actions:
-            accumulative_changed_state = operator.apply(accumulative_changed_state, allow_inapplicable_actions=True)
+            accumulative_changed_state = operator.apply(accumulative_changed_state, f_agents=f_agents, allow_inapplicable_actions=True)
         else:
             raise ValueError("Cannot apply an action when it is not applicable!")
 

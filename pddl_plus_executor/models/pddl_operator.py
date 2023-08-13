@@ -81,7 +81,7 @@ class Operator:
         :param current_state: the state that will change according to the action's effects.
         """
         if self.problem_objects is None:
-            self.logger.warning("Did not receive the problem object so cannot apply the universal effects.")
+            self.logger.debug("Did not receive the problem object so cannot apply the universal effects.")
             return
 
         for pddl_object in self.problem_objects.values():
@@ -136,12 +136,17 @@ class Operator:
         if not self.grounded:
             self.ground()
 
+        self.logger.warning(f'===============================================================')
+        self.logger.warning(f"Applying action {str(self)} on the current state:")
+        self.logger.warning(f"{str(previous_state.serialize())}")
+
         if not self.is_applicable(previous_state):
-            self.logger.warning("Tried to apply an action to a state where the action's preconditions don't hold!")
+            self.logger.warning(f"Tried to apply an action {str(self)} to a previous state where the action's preconditions don't hold!")
+            # todo: if the program reached this point this means that the agent is in a conflict. conflict model should be designed here
             if not allow_inapplicable_actions:
                 raise ValueError("Cannot apply an action when it is not applicable!")
 
-        self.logger.debug(f"Applying the grounded action - {self.name} on the current state.")
+        self.logger.debug(f"Applying action {str(self)} on the current state.")
         new_state = previous_state.copy()
         new_state.is_init = False
         executing_agent = self.get_executing_agent(f_agents)
@@ -155,6 +160,11 @@ class Operator:
             effect.apply(new_state, executing_agent, f_agents[executing_agent])
 
         self._apply_universal_effects(previous_state, new_state)
+
+        self.logger.warning(f'++++++++++++++++++++++++++++')
+        self.logger.warning(f"The new state after applying the action: {str(self)}")
+        self.logger.warning(f"{str(new_state.serialize())}")
+        self.logger.warning(f'===============================================================')
         return new_state
 
     def ground(self) -> None:

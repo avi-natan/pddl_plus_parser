@@ -11,7 +11,7 @@ from pddl_plus_executor.multi_agent.multi_agent_trajectory_exporter import Multi
 
 def execute_combined_plan_with_faults(c_domain, c_problem, c_plan_file_path, c_trajectory_path, f_agents):
     trajectory_exporter = MultiAgentTrajectoryExporter(c_domain)
-    triplets = trajectory_exporter.parse_plan(problem=c_problem, f_agents=f_agents, plan_path=c_plan_file_path)
+    triplets = trajectory_exporter.parse_plan(problem=c_problem, f_agents=f_agents, plan_path=c_plan_file_path, allow_inapplicable_actions=False)
     trajectory_exporter.export_to_file(triplets, c_trajectory_path)
 
 def generate_combined_plan(c_domain, c_problem, p_file_path, combined_p_file_path, a_names):
@@ -54,7 +54,7 @@ if __name__ == '__main__':
         'tru2': {
             'move-forward': [0.0, ['delete_all']],
             'rotate-right': [0.0, ['delete_all']],
-            'rotate-left': [0.0, ['delete_all']],
+            'rotate-left': [0.9, ['delete_all']],
             'lift-box': [0.0, ['delete_all']],
             'drop-box': [0.0, ['delete_all']]
         },
