@@ -142,9 +142,17 @@ class Operator:
 
         if not self.is_applicable(previous_state):
             self.logger.warning(f"Tried to apply an action {str(self)} to a previous state where the action's preconditions don't hold!")
-            # todo: if the program reached this point this means that the agent is in a conflict. conflict model should be designed here
             if not allow_inapplicable_actions:
-                raise ValueError("Cannot apply an action when it is not applicable!")
+                # raise ValueError("Cannot apply an action when it is not applicable!")
+                # Simple conflict model that states - dont do any ation and return the same state
+                # todo: prepare frame for possible additional conflict model - postpone the action
+                new_state = previous_state.copy()
+                new_state.is_init = False
+                self.logger.warning(f'++++++++++++++++++++++++++++')
+                self.logger.warning(f"The new state after NOT applying the action: {str(self)} because preconditions don't hold")
+                self.logger.warning(f"{str(new_state.serialize())}")
+                self.logger.warning(f'===============================================================')
+                return new_state
 
         self.logger.debug(f"Applying action {str(self)} on the current state.")
         new_state = previous_state.copy()

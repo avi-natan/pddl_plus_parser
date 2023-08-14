@@ -44,6 +44,7 @@ def apply_actions(domain: Domain, current_state: State, joint_action: List[Actio
         if operator.is_applicable(current_state) or allow_inapplicable_actions:
             accumulative_changed_state = operator.apply(accumulative_changed_state, f_agents=f_agents, allow_inapplicable_actions=True)
         else:
-            raise ValueError("Cannot apply an action when it is not applicable!")
+            pass
+            # raise ValueError("Cannot apply an action when it is not applicable!")
 
     return accumulative_changed_state

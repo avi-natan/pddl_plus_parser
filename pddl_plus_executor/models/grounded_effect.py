@@ -72,7 +72,6 @@ class GroundedEffect:
         :param e_agent: the agent executing the operator.
         :param e_actions: actions of the executing agent and their fault models.
         """
-        # todo: here, according to the fault model and probability of the agent, decide which effect to apply
         action_name = self.action.name
         prob = e_actions[action_name][0]
         rnd = random.uniform(0, 1)

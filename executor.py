@@ -54,7 +54,7 @@ if __name__ == '__main__':
         'tru2': {
             'move-forward': [0.0, ['delete_all']],
             'rotate-right': [0.0, ['delete_all']],
-            'rotate-left': [0.9, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
             'lift-box': [0.0, ['delete_all']],
             'drop-box': [0.0, ['delete_all']]
         },
@@ -63,7 +63,7 @@ if __name__ == '__main__':
             'rotate-right': [0.0, ['delete_all']],
             'rotate-left': [0.0, ['delete_all']],
             'lift-box': [0.0, ['delete_all']],
-            'drop-box': [0.0, ['delete_all']]
+            'drop-box': [0.99, ['delete_all']]
         }
     }
     domain_file_path = benchmarks_path / f"{domain_name}" / f"{domain_name}-domain.pddl"
