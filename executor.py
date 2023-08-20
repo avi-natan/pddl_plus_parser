@@ -29,10 +29,12 @@ if __name__ == '__main__':
     start_time = datetime.now()
 
     benchmarks_path = Path("benchmarks")
-    domain_name = f"logistics-4-0"
+    # domain_name = f"logistics-4-0"
+    domain_name = f"warehouse"
     problem_name = f"problem001"
 
-    agent_names = ["apn1", "apn2", "tru1", "tru2", "tru3", "tru4", "tru5"]
+    # agent_names = ["apn1", "apn2", "tru1", "tru2", "tru3", "tru4", "tru5"]
+    agent_names = ["tru1", "tru2", "tru3"]
 
     # this is a dictionary of {'agent': {'action': ['prob', 'model']}} where:
     # 'agent': str - the agent name
@@ -43,67 +45,67 @@ if __name__ == '__main__':
     #                ['delete_some', 'e1', 'e2', ..., 'en']: delete following effects
     #                ['postpone']: postpone the action
     # we start with simplest fault model of: {'a1': {'act1': [0.3, ['delete_all]]}
-    # faulty_agents = {
-    #     'tru1': {
-    #         'move-forward': [0.0, ['delete_all']],
-    #         'rotate-right': [0.0, ['delete_all']],
-    #         'rotate-left': [0.0, ['delete_all']],
-    #         'lift-box': [0.0, ['delete_all']],
-    #         'drop-box': [0.0, ['delete_all']]
-    #     },
-    #     'tru2': {
-    #         'move-forward': [0.0, ['delete_all']],
-    #         'rotate-right': [0.0, ['delete_all']],
-    #         'rotate-left': [0.0, ['delete_all']],
-    #         'lift-box': [0.0, ['delete_all']],
-    #         'drop-box': [0.0, ['delete_all']]
-    #     },
-    #     'tru3': {
-    #         'move-forward': [0.0, ['delete_all']],
-    #         'rotate-right': [0.0, ['delete_all']],
-    #         'rotate-left': [0.0, ['delete_all']],
-    #         'lift-box': [0.0, ['delete_all']],
-    #         'drop-box': [0.99, ['delete_all']]
-    #     }
-    # }
-
     faulty_agents = {
-        'apn1': {
-            'load-airplane': [0.0, ['delete_all']],
-            'unload-airplane': [0.0, ['delete_all']],
-            'fly-airplane': [0.0, ['delete_all']]
-        },
-        'apn2': {
-            'load-airplane': [0.0, ['delete_all']],
-            'unload-airplane': [0.0, ['delete_all']],
-            'fly-airplane': [0.0, ['delete_all']]
-        },
         'tru1': {
-            'load-truck': [0.0, ['delete_all']],
-            'unload-truck': [0.0, ['delete_all']],
-            'drive-truck': [0.0, ['delete_all']]
+            'move-forward': [0.99, ['delete_all']],
+            'rotate-right': [0.0, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
+            'lift-box': [0.0, ['delete_all']],
+            'drop-box': [0.0, ['delete_all']]
         },
         'tru2': {
-            'load-truck': [0.0, ['delete_all']],
-            'unload-truck': [0.3, ['delete_all']],
-            'drive-truck': [0.0, ['delete_all']]
+            'move-forward': [0.0, ['delete_all']],
+            'rotate-right': [0.0, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
+            'lift-box': [0.0, ['delete_all']],
+            'drop-box': [0.0, ['delete_all']]
         },
         'tru3': {
-            'load-truck': [0.0, ['delete_all']],
-            'unload-truck': [0.0, ['delete_all']],
-            'drive-truck': [0.0, ['delete_all']]
-        },
-        'tru4': {
-            'load-truck': [0.0, ['delete_all']],
-            'unload-truck': [0.0, ['delete_all']],
-            'drive-truck': [0.0, ['delete_all']]
-        },
-        'tru5': {
-            'load-truck': [0.0, ['delete_all']],
-            'unload-truck': [0.0, ['delete_all']],
-            'drive-truck': [0.0, ['delete_all']]
-        },
+            'move-forward': [0.0, ['delete_all']],
+            'rotate-right': [0.0, ['delete_all']],
+            'rotate-left': [0.0, ['delete_all']],
+            'lift-box': [0.0, ['delete_all']],
+            'drop-box': [0.0, ['delete_all']]
+        }
     }
+
+    # faulty_agents = {
+    #     'apn1': {
+    #         'load-airplane': [0.0, ['delete_all']],
+    #         'unload-airplane': [0.0, ['delete_all']],
+    #         'fly-airplane': [0.0, ['delete_all']]
+    #     },
+    #     'apn2': {
+    #         'load-airplane': [0.0, ['delete_all']],
+    #         'unload-airplane': [0.0, ['delete_all']],
+    #         'fly-airplane': [0.0, ['delete_all']]
+    #     },
+    #     'tru1': {
+    #         'load-truck': [0.0, ['delete_all']],
+    #         'unload-truck': [0.0, ['delete_all']],
+    #         'drive-truck': [0.0, ['delete_all']]
+    #     },
+    #     'tru2': {
+    #         'load-truck': [0.0, ['delete_all']],
+    #         'unload-truck': [0.3, ['delete_all']],
+    #         'drive-truck': [0.0, ['delete_all']]
+    #     },
+    #     'tru3': {
+    #         'load-truck': [0.0, ['delete_all']],
+    #         'unload-truck': [0.0, ['delete_all']],
+    #         'drive-truck': [0.0, ['delete_all']]
+    #     },
+    #     'tru4': {
+    #         'load-truck': [0.0, ['delete_all']],
+    #         'unload-truck': [0.0, ['delete_all']],
+    #         'drive-truck': [0.0, ['delete_all']]
+    #     },
+    #     'tru5': {
+    #         'load-truck': [0.0, ['delete_all']],
+    #         'unload-truck': [0.0, ['delete_all']],
+    #         'drive-truck': [0.0, ['delete_all']]
+    #     },
+    # }
     domain_file_path = benchmarks_path / f"{domain_name}" / f"{domain_name}-domain.pddl"
     problem_file_path = benchmarks_path / f"{domain_name}" / f"{problem_name}" / f"{domain_name}-{problem_name}.pddl"
     plan_file_path = benchmarks_path / f"{domain_name}" / f"{problem_name}" / f"{domain_name}-{problem_name}-plan.txt"
