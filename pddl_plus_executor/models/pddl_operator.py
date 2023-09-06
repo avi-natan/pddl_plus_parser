@@ -152,6 +152,7 @@ class Operator:
                 self.logger.warning(f"The new state after NOT applying the action: {str(self)} because preconditions don't hold")
                 self.logger.warning(f"{str(new_state.serialize())}")
                 self.logger.warning(f'===============================================================')
+                self.logger.warning(f'')
                 return new_state
 
         self.logger.debug(f"Applying action {str(self)} on the current state.")
@@ -173,6 +174,7 @@ class Operator:
         self.logger.warning(f"The new state after applying the action: {str(self)}")
         self.logger.warning(f"{str(new_state.serialize())}")
         self.logger.warning(f'===============================================================')
+        self.logger.warning(f'')
         return new_state
 
     def ground(self) -> None:

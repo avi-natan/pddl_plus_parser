@@ -108,13 +108,22 @@ class MultiAgentTrajectoryExporter:
         previous_state = create_initial_state(problem)
         triplets = []
         self.logger.debug("Starting to create the trajectory triplets.")
+        timestep = 1
         for grounded_action_call in plan_actions:
+            self.logger.warning(f'################################################################################')
+            self.logger.warning(f'############################### timestep {timestep} ####################################')
+            self.logger.warning(f'################################################################################')
+
             triplet = self.create_multi_agent_triplet(previous_state, grounded_action_call,
                                                       problem_objects=problem.objects,
                                                       f_agents=f_agents,
                                                       allow_inapplicable_actions=allow_inapplicable_actions)
             triplets.append(triplet)
             previous_state = triplet.next_state
+            self.logger.warning(f'')
+            self.logger.warning(f'')
+            self.logger.warning(f'')
+            timestep += 1
 
         return triplets
 

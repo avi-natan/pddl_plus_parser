@@ -11,39 +11,39 @@
 )
 
 (:action load-airplane
-	:parameters   (?airplane - airplane ?obj - package ?loc - airport)
-	:precondition (and (at ?obj ?loc) (at ?airplane ?loc))
-	:effect       (and (in ?obj ?airplane) (not (at ?obj ?loc))
-))
+	:parameters     (?airplane - airplane ?obj - package ?loc - airport)
+	:precondition   (and (at ?obj ?loc) (at ?airplane ?loc))
+	:effect         (and (in ?obj ?airplane) (not (at ?obj ?loc)))
+)
 
 (:action unload-airplane
-	:parameters   (?airplane - airplane ?obj - package ?loc - airport)
-	:precondition (and (in ?obj ?airplane) (at ?airplane ?loc))
-	:effect       (and (at ?obj ?loc) (not (in ?obj ?airplane))
-))
+	:parameters     (?airplane - airplane ?obj - package ?loc - airport)
+	:precondition   (and (in ?obj ?airplane) (at ?airplane ?loc))
+	:effect         (and (at ?obj ?loc) (not (in ?obj ?airplane)))
+)
 
 (:action fly-airplane
-	:parameters   (?airplane - airplane ?loc-from - airport ?loc-to - airport)
-	:precondition (and )
-	:effect       (and (at ?airplane ?loc-to) (not (at ?airplane ?loc-from))
-))
+	:parameters     (?airplane - airplane ?loc-from - airport ?loc-to - airport)
+	:precondition   (and )
+	:effect         (and (at ?airplane ?loc-to) (not (at ?airplane ?loc-from)))
+)
 
 (:action load-truck
-	:parameters   (?truck - truck ?obj - package ?loc - location)
-	:precondition (and (at ?truck ?loc) (at ?obj ?loc))
-	:effect       (and (in ?obj ?truck) (not (at ?obj ?loc))
-))
+	:parameters     (?truck - truck ?obj - package ?loc - location)
+	:precondition   (and (at ?truck ?loc) (at ?obj ?loc))
+	:effect         (and (in ?obj ?truck) (not (at ?obj ?loc)))
+)
 
 (:action unload-truck
-	:parameters   (?truck - truck ?obj - package ?loc - location)
-	:precondition (and (at ?truck ?loc) (in ?obj ?truck))
-	:effect       (and (at ?obj ?loc) (not (in ?obj ?truck))
-))
+	:parameters     (?truck - truck ?obj - package ?loc - location)
+	:precondition   (and (at ?truck ?loc) (in ?obj ?truck))
+	:effect         (and (at ?obj ?loc) (not (in ?obj ?truck)))
+)
 
 (:action drive-truck
-	:parameters   (?truck - truck ?loc-from - location ?loc-to - location ?city - city)
-	:precondition (and (in-city ?truck ?loc-to ?city) (at ?truck ?loc-from) (in-city ?truck ?loc-from ?city))
-	:effect       (and (at ?truck ?loc-to) (not (at ?truck ?loc-from))
-))
+	:parameters     (?truck - truck ?loc-from - location ?loc-to - location ?city - city)
+	:precondition   (and (in-city ?truck ?loc-to ?city) (at ?truck ?loc-from) (in-city ?truck ?loc-from ?city))
+	:effect         (and (at ?truck ?loc-to) (not (at ?truck ?loc-from)))
+)
 
 )
